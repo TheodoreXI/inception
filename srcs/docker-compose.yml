@@ -1,6 +1,7 @@
 services:
   mariadb:
-    build: ./requirements/mariadb 
+    build: ./requirements/mariadb
+    image: mariadb:latest
     volumes:
       - mariadb:/var/lib/mysql
     env_file:
@@ -11,8 +12,26 @@ services:
     restart: on-failure
   wordpress:
     build: ./requirements/wordpress
+    image: wordpress
     volumes:
-
+      - wordpress:/var/www/html
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
+    secrets:
+      - db_password
+    restart: on-failure
+  nginx:
+    build: ./requirements/nginx
+    image: nginx
+    volumes:
+      - wordpress:/
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+    restart: on-failure
 secrets:
   db_password:
     file: ../secrets/db_password.txt
