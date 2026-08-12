@@ -1,0 +1,20 @@
+services:
+  db:
+    build: ./requirements/mariadb
+    volumes:
+      - mariadb/var/lib/mysql
+    env_file:
+      - .env
+    secrets:
+      - db_password
+      - db_root_password
+    restart: on-failure
+  wordpress:
+    build: ./requirements/wordpress
+    volumes:
+
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt
