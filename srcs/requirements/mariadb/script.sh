@@ -21,7 +21,7 @@ done
 mariadb << 'END'
     CREATE DATABASE IF NOT EXISTS "wpdataset";
     CREATE USER IF NOT EXISTS "wpuser"@"%" IDENTIFIED BY "wppass";
-    GRANT ALL PRIVILIGES ON "wpdataset" .* TO "wpuser"@"%";
+    GRANT ALL PRIVILIGES ON "wpdataset".* TO "wpuser"@"%";
 END
 kill "$PID"
 
