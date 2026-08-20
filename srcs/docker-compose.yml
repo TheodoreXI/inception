@@ -9,6 +9,8 @@ services:
     secrets:
       - db_password
       - db_root_password
+    networks:
+      - inception
     restart: on-failure
   wordpress:
     build: ./requirements/wordpress
@@ -21,19 +23,29 @@ services:
       - .env
     secrets:
       - db_password
+    networks:
+      - inception
     restart: on-failure
   nginx:
     build: ./requirements/nginx
     image: nginx
     volumes:
-      - wordpress:/
+      - wordpress:/var/www/html
     ports:
       - "443:443"
     depends_on:
       - wordpress
+    networks:
+      - inception
     restart: on-failure
+  
+networks:
+  inception:
+    driver: bridge
 
-
+volumes:
+  mariadb:
+  wordpress:
 
 secrets:
   db_password:
