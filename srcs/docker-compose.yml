@@ -32,6 +32,9 @@ services:
     depends_on:
       - wordpress
     restart: on-failure
+
+
+
 secrets:
   db_password:
     file: ../secrets/db_password.txt

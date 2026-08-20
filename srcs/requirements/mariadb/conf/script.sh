@@ -19,9 +19,9 @@ until mariadb -e "select 42"; do
 done
 
 mariadb << 'END'
-    CREATE DATABASE IF NOT EXISTS "wpdataset";
-    CREATE USER IF NOT EXISTS "wpuser"@"%" IDENTIFIED BY "wppass";
-    GRANT ALL PRIVILIGES ON "wpdataset".* TO "wpuser"@"%";
+    CREATE DATABASE IF NOT EXISTS `wpdataset`;
+    CREATE USER IF NOT EXISTS `wpuser`@`%` IDENTIFIED BY `wppass`;
+    GRANT ALL PRIVILEGES ON `wpdataset`.* TO `wpuser`@`%`;
 END
 kill "$PID"
 
